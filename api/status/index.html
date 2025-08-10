@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Status - WeooWallet</title>
+</head>
+<body>
+    <script>
+        // API Status Response
+        const apiStatus = {
+            "status": "online",
+            "service": "WeooWallet Payment Gateway",
+            "version": "1.0.0",
+            "timestamp": new Date().toISOString(),
+            "endpoints": {
+                "/api/{endpoint}": "Process payment",
+                "/api/validate/{endpoint}": "Validate endpoint",
+                "/api/status": "API status"
+            },
+            "uptime": "99.9%",
+            "response_time": "< 100ms"
+        };
+        
+        // Check if this is an API request (Accept: application/json)
+        const acceptHeader = new URLSearchParams(window.location.search).get('format');
+        
+        if (acceptHeader === 'json') {
+            document.body.innerHTML = '<pre>' + JSON.stringify(apiStatus, null, 2) + '</pre>';
+            document.body.style.fontFamily = 'monospace';
+            document.body.style.padding = '20px';
+            document.body.style.backgroundColor = '#f5f5f5';
+        } else {
+            // HTML response
+            document.body.innerHTML = `
+                <style>
+                    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+                    .status-card { background: #e7f5e7; padding: 20px; border-radius: 10px; margin: 20px 0; }
+                    .online { color: #28a745; font-weight: bold; }
+                    .endpoint { background: #f8f9fa; padding: 10px; margin: 5px 0; border-radius: 5px; }
+                    pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+                </style>
+                <h1>🟢 API Status</h1>
+                <div class="status-card">
+                    <h2 class="online">Service Online</h2>
+                    <p><strong>Service:</strong> ${apiStatus.service}</p>
+                    <p><strong>Version:</strong> ${apiStatus.version}</p>
+                    <p><strong>Uptime:</strong> ${apiStatus.uptime}</p>
+                    <p><strong>Response Time:</strong> ${apiStatus.response_time}</p>
+                    <p><strong>Last Updated:</strong> ${apiStatus.timestamp}</p>
+                </div>
+                
+                <h3>Available Endpoints:</h3>
+                ${Object.entries(apiStatus.endpoints).map(([endpoint, desc]) => 
+                    `<div class="endpoint"><strong>${endpoint}</strong> - ${desc}</div>`
+                ).join('')}
+                
+                <h3>JSON Response:</h3>
+                <pre>${JSON.stringify(apiStatus, null, 2)}</pre>
+                
+                <p><a href="../">← Back to Home</a></p>
+            `;
+        }
+    </script>
+</body>
+  </html>
+  
