@@ -1,0 +1,19 @@
+
+# WeooWallet API .htaccess for GitHub Pages
+# Note: GitHub Pages doesn't support .htaccess, this is for reference
+
+RewriteEngine On
+
+# Enable CORS for API requests
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type"
+
+# API routing
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/(.*)$ /api-handler.html?endpoint=$1 [QSA,L]
+
+# Serve JSON for API requests
+RewriteCond %{HTTP_ACCEPT} application/json
+RewriteRule ^api/(.*)$ /api-handler.html?endpoint=$1&format=json [QSA,L]
