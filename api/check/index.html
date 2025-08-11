@@ -1,1 +1,37 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Payments - WeooWallet API</title>
+</head>
+<body>
+    <script>
+        // Get parameters from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const endpoint = urlParams.get('endpoint');
+        const userId = urlParams.get('user_id');
+        
+        let response;
+        if (!endpoint || !userId) {
+            response = {
+                status: "error",
+                message: "Missing endpoint or user_id parameter",
+                timestamp: new Date().toISOString()
+            };
+        } else {
+            response = {
+                status: "success",
+                message: "Payments checked successfully",
+                payments: [], // Empty for demo
+                endpoint: endpoint,
+                user_id: userId,
+                timestamp: new Date().toISOString()
+            };
+        }
+        
+        document.body.innerHTML = `<pre>${JSON.stringify(response, null, 2)}</pre>`;
+    </script>
+</body>
+</html>
