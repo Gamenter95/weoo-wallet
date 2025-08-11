@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeooWallet API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .endpoint {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+        }
+        .status-success { border-left-color: #28a745; }
+        .status-error { border-left-color: #dc3545; }
+        code {
+            background: #e9ecef;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 WeooWallet Payment Gateway API</h1>
+        <p><strong>Status:</strong> <span id="api-status">Loading...</span></p>
+        
+        <div class="endpoint">
+            <h3>📡 Process Payment</h3>
+            <p><code>GET /api/{endpoint}?AMOUNT={amount}&COMMENT={comment}</code></p>
+            <p>Process a payment through user's unique endpoint</p>
+        </div>
+
+        <div class="endpoint">
+            <h3>✅ Validate Endpoint</h3>
+            <p><code>GET /api/validate/{endpoint}</code></p>
+            <p>Validate if an endpoint exists and is active</p>
+        </div>
+
+        <div class="endpoint">
+            <h3>📊 API Status</h3>
+            <p><code>GET /api/status</code></p>
+            <p>Check API health and status</p>
+        </div>
+
+        <div class="endpoint">
+            <h3>📋 Check Payments</h3>
+            <p><code>GET /api/check?endpoint={endpoint}&user_id={user_id}</code></p>
+            <p>Check for pending payments for a user</p>
+        </div>
+
+        <h2>📚 Documentation</h2>
+        <p><a href="docs.html">View Full API Documentation</a></p>
+        
+        <h2>🧪 Test Endpoints</h2>
+        <p>Demo endpoints for testing:</p>
+        <ul>
+            <li><code>abc123def456</code> - Demo User</li>
+            <li><code>xyz789ghi012</code> - Test User</li>
+        </ul>
+    </div>
+
+    <script>
+        // API Router - Handle different endpoint requests
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const path = window.location.pathname;
+            
+            // Check if this is an API call
+            if (path.includes('/api/')) {
+                handleAPIRequest(path, urlParams);
+            } else {
+                // Show API status on main page
+                document.getElementById('api-status').innerHTML = '🟢 Operational';
+            }
+        });
+
+        function handleAPIRequest(path, params) {
+            const pathParts = path.split('/');
+            const endpoint = pathParts[pathParts.length - 1];
+            
+            if (path.includes('/api/status')) {
+                showAPIResponse({
+                    status: "success",
+                    message: "API is operational",
+                    timestamp: new Date().toISOString(),
+                    version: "1.0.0"
+                });
+            } else if (path.includes('/api/validate/')) {
+                handleValidateEndpoint(endpoint);
+            } else if (path.includes('/api/check')) {
+                handleCheckPayments(params);
+            } else if (pathParts.length >= 3 && pathParts[1] === 'api') {
+                // Direct endpoint payment
+                handlePaymentRequest(endpoint, params);
+            } else {
+                showAPIResponse({
+                    status: "error",
+                    message: "Invalid API endpoint",
+                    timestamp: new Date().toISOString()
+                });
+            }
+        }
+
+        function handleValidateEndpoint(endpoint) {
+            const validEndpoints = ['abc123def456', 'xyz789ghi012'];
+            
+            if (validEndpoints.includes(endpoint)) {
+                showAPIResponse({
+                    status: "success",
+                    message: "Endpoint is valid and active",
+                    endpoint: endpoint,
+                    timestamp: new Date().toISOString()
+                });
+            } else {
+                showAPIResponse({
+                    status: "error",
+                    message: "Invalid or inactive endpoint",
+                    endpoint: endpoint,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        }
+
+        function handlePaymentRequest(endpoint, params) {
+            const amount = params.get('AMOUNT');
+            const comment = params.get('COMMENT') || 'Payment';
+            
+            if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
+                showAPIResponse({
+                    status: "error",
+                    message: "Invalid amount",
+                    timestamp: new Date().toISOString()
+                });
+                return;
+            }
+
+            const validEndpoints = ['abc123def456', 'xyz789ghi012'];
+            
+            if (!validEndpoints.includes(endpoint)) {
+                showAPIResponse({
+                    status: "error",
+                    message: "Invalid endpoint",
+                    timestamp: new Date().toISOString()
+                });
+                return;
+            }
+
+            // Simulate payment processing
+            const transactionId = 'TXN_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            
+            showAPIResponse({
+                status: "success",
+                message: "Payment processed successfully",
+                transaction_id: transactionId,
+                amount: parseFloat(amount),
+                comment: comment,
+                endpoint: endpoint,
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function handleCheckPayments(params) {
+            const endpoint = params.get('endpoint');
+            const userId = params.get('user_id');
+            
+            if (!endpoint || !userId) {
+                showAPIResponse({
+                    status: "error",
+                    message: "Missing endpoint or user_id parameter",
+                    timestamp: new Date().toISOString()
+                });
+                return;
+            }
+
+            // Simulate checking for payments
+            showAPIResponse({
+                status: "success",
+                message: "Payments checked",
+                payments: [],
+                endpoint: endpoint,
+                user_id: userId,
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        function showAPIResponse(response) {
+            document.body.innerHTML = `
+                <div class="container">
+                    <h1>🌐 WeooWallet API Response</h1>
+                    <div class="endpoint ${response.status === 'success' ? 'status-success' : 'status-error'}">
+                        <pre>${JSON.stringify(response, null, 2)}</pre>
+                    </div>
+                    <p><a href="/api/">← Back to API Documentation</a></p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
