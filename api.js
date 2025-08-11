@@ -13,7 +13,7 @@
         const path = window.location.pathname;
         const params = new URLSearchParams(window.location.search);
         
-        // Extract endpoint from path like /weoowallet/api/abc123def456
+        // Extract endpoint from path like /weoo-wallet/api/abc123def456
         const pathParts = path.split('/');
         const apiIndex = pathParts.indexOf('api');
         

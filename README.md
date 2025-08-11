@@ -5,7 +5,7 @@ This website provides a payment gateway API that works with the WeooWallet Teleg
 
 ## 🚀 GitHub Pages Deployment
 
-1. **Create a new repository** named `weoowallet` on GitHub
+1. **Create a new repository** named `weoo-wallet` on GitHub
 2. **Upload all files** from the `website/` folder to the repository
 3. **Enable GitHub Pages:**
    - Go to repository Settings
@@ -16,24 +16,24 @@ This website provides a payment gateway API that works with the WeooWallet Teleg
 
 4. **Your API will be available at:**
    ```
-   https://gamenter95.github.io/weoowallet/
+   https://gamenter95.github.io/weoo-wallet/
    ```
 
 ## 📡 API Endpoints
 
 ### Process Payment
 ```
-GET https://gamenter95.github.io/weoowallet/api/{endpoint}?AMOUNT=100&COMMENT=Payment
+GET https://gamenter95.github.io/weoo-wallet/api/{endpoint}?AMOUNT=100&COMMENT=Payment
 ```
 
 ### Validate Endpoint
 ```
-GET https://gamenter95.github.io/weoowallet/api/validate/{endpoint}
+GET https://gamenter95.github.io/weoo-wallet/api/validate/{endpoint}
 ```
 
 ### API Status
 ```
-GET https://gamenter95.github.io/weoowallet/api/status
+GET https://gamenter95.github.io/weoo-wallet/api/status
 ```
 
 ## 🔧 Configuration
@@ -50,7 +50,7 @@ Two demo endpoints are included for testing:
 
 Update your bot's gateway URL to:
 ```python
-self.gateway_url = "https://gamenter95.github.io/weoowallet"
+self.gateway_url = "https://gamenter95.github.io/weoo-wallet"
 ```
 
 ## 📝 Features
@@ -66,9 +66,9 @@ self.gateway_url = "https://gamenter95.github.io/weoowallet"
 ## 🔍 Testing
 
 Test the API with these URLs:
-- https://gamenter95.github.io/weoowallet/api/abc123def456?AMOUNT=100&COMMENT=Test
-- https://gamenter95.github.io/weoowallet/api/validate/abc123def456
-- https://gamenter95.github.io/weoowallet/api/status
+- https://gamenter95.github.io/weoo-wallet/api/abc123def456?AMOUNT=100&COMMENT=Test
+- https://gamenter95.github.io/weoo-wallet/api/validate/abc123def456
+- https://gamenter95.github.io/weoo-wallet/api/status
 
 ## 📱 Mobile Support
 
