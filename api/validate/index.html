@@ -1,1 +1,39 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validate Endpoint - WeooWallet API</title>
+</head>
+<body>
+    <script>
+        // Get endpoint from URL
+        const path = window.location.pathname;
+        const endpoint = path.split('/').pop();
+        
+        // Valid demo endpoints
+        const validEndpoints = ['abc123def456', 'xyz789ghi012'];
+        
+        let response;
+        if (validEndpoints.includes(endpoint)) {
+            response = {
+                status: "success",
+                message: "Endpoint is valid and active",
+                endpoint: endpoint,
+                timestamp: new Date().toISOString()
+            };
+        } else {
+            response = {
+                status: "error",
+                message: "Invalid or inactive endpoint",
+                endpoint: endpoint,
+                timestamp: new Date().toISOString()
+            };
+        }
+        
+        // Set content type and display JSON response
+        document.body.innerHTML = `<pre>${JSON.stringify(response, null, 2)}</pre>`;
+    </script>
+</body>
+</html>
