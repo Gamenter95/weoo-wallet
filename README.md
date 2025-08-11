@@ -56,6 +56,20 @@ Two demo endpoints are included for testing:
 - `abc123def456` (demo_user)
 - `xyz789ghi012` (test_user)
 
+### Testing URLs
+
+**Payment Endpoints:**
+```
+https://gamenter95.github.io/weoo-wallet/api/abc123def456?AMOUNT=100&COMMENT=Test
+https://gamenter95.github.io/weoo-wallet/api/xyz789ghi012?AMOUNT=50&COMMENT=Demo
+```
+
+**Validation Endpoints:**
+```
+https://gamenter95.github.io/weoo-wallet/api/validate/abc123def456
+https://gamenter95.github.io/weoo-wallet/api/validate/xyz789ghi012
+```
+
 ## 🤖 Bot Integration
 
 Update your bot's gateway URL to:
