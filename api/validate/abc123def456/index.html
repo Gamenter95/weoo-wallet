@@ -1,1 +1,22 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validate Endpoint - WeooWallet API</title>
+</head>
+<body>
+    <script>
+        const response = {
+            status: "success",
+            message: "Endpoint is valid and active",
+            endpoint: "abc123def456",
+            user_id: "demo_user",
+            timestamp: new Date().toISOString()
+        };
+        
+        document.body.innerHTML = `<pre>${JSON.stringify(response, null, 2)}</pre>`;
+    </script>
+</body>
+</html>
