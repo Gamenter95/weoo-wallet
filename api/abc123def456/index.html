@@ -1,1 +1,42 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway - WeooWallet API</title>
+</head>
+<body>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const amount = urlParams.get('AMOUNT');
+        const comment = urlParams.get('COMMENT') || 'Payment';
+        
+        let response;
+        
+        if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
+            response = {
+                status: "error",
+                message: "Invalid or missing AMOUNT parameter",
+                example: "/api/abc123def456?AMOUNT=100&COMMENT=Test%20Payment",
+                timestamp: new Date().toISOString()
+            };
+        } else {
+            const transactionId = 'TXN_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            
+            response = {
+                status: "success",
+                message: "Payment processed successfully",
+                transaction_id: transactionId,
+                amount: parseFloat(amount),
+                comment: comment,
+                endpoint: "abc123def456",
+                user_id: "demo_user",
+                timestamp: new Date().toISOString()
+            };
+        }
+        
+        document.body.innerHTML = `<pre>${JSON.stringify(response, null, 2)}</pre>`;
+    </script>
+</body>
+</html>
